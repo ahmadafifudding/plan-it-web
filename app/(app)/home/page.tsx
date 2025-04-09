@@ -1,7 +1,5 @@
 import { Metadata } from "next";
 import { Heading } from "@/components/ui/heading";
-import { Input, InputGroup } from "@/components/ui/input";
-import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import { AddTodo } from "@/app/(app)/home/add";
 import { Todos } from "@/components/todos";
 import { fetchTodo } from "@/lib/actions/todo";

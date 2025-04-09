@@ -33,7 +33,7 @@ export const addTodo = async (title: string) => {
   };
 };
 
-export const fetchTodo = async (search?: string): Promise<Todo[]> => {
+export const fetchTodo = async (): Promise<Todo[]> => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
