@@ -13,6 +13,7 @@ import { Heading } from "@/components/ui/heading";
 import { useTransition } from "react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const loginSchema = authSchema.pick({
   email: true,
@@ -20,6 +21,7 @@ const loginSchema = authSchema.pick({
 });
 
 export function LoginForm() {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const {
@@ -29,8 +31,8 @@ export function LoginForm() {
   } = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "ahmadafifuddin@gmail.com",
-      password: "Admin123#",
+      email: "",
+      password: "",
     },
   });
 
@@ -44,6 +46,7 @@ export function LoginForm() {
       if (error) {
         toast.error(error.message);
       }
+      router.push("/home");
     });
   }
 
