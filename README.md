@@ -59,7 +59,7 @@ You need Node.js 20 or later, pnpm, a Postgres database (a free Neon project wor
    pnpm dev
    ```
 
-5. Open [localhost:3000/register](http://localhost:3000/register) to create an account. The home route `/` is still empty, so start from `/register` or `/login`.
+5. Open [localhost:3000/register](http://localhost:3000/register) to create an account. After that, `/` takes you to your to-do list, or to `/login` when you're signed out.
 
 Verification emails are sent from the address set in `lib/auth.ts`. Change it to an address on a domain you've verified in Resend, or the codes won't arrive.
 

@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { toggleTodo } from "@/lib/actions/todo";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export function Todos({ todos }: { todos: Todo[] }) {
   return (
@@ -23,7 +24,11 @@ export function TodoItem({ item }: { item: Todo }) {
 
   const handleCheck = async (id: string, done: boolean) => {
     setSelected(done);
-    await toggleTodo(id, done);
+    const { message } = await toggleTodo(id, done);
+    if (message) {
+      setSelected(!done);
+      toast.error(message);
+    }
     router.refresh();
   };
 

@@ -13,6 +13,8 @@ export const auth = betterAuth({
     admin(),
     emailOTP({
       sendVerificationOnSignUp: true,
+      // In seconds. Matches the 10 minutes promised in the email (the default is 5).
+      expiresIn: 10 * 60,
       async sendVerificationOTP({ email, otp }) {
         try {
           await resend.emails.send({

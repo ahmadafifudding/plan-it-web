@@ -6,7 +6,7 @@ import { randomUUID } from "node:crypto";
 
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { Todo } from "@/types/todo";
 
 export const addTodo = async (title: string) => {
@@ -50,5 +50,32 @@ export const fetchTodo = async (): Promise<Todo[]> => {
 };
 
 export const toggleTodo = async (id: string, done: boolean) => {
-  return db.update(todos).set({ done }).where(eq(todos.id, id)).returning();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    return {
+      success: false,
+      message: "You are not logged in.",
+    };
+  }
+
+  // Only the owner's to-do matches, so nobody can tick off someone else's.
+  const updated = await db
+    .update(todos)
+    .set({ done })
+    .where(and(eq(todos.id, id), eq(todos.userId, session.user.id)))
+    .returning();
+
+  if (updated.length === 0) {
+    return {
+      success: false,
+      message: "To-do not found.",
+    };
+  }
+
+  return {
+    success: true,
+  };
 };
