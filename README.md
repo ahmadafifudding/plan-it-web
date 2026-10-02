@@ -1,6 +1,6 @@
 # PLANIT
 
-A planner for to-dos, events and the money around them. This is the Next.js rebuild of [PLANIT](https://github.com/ahmadafifudding/plan-it), which I first built in PHP.
+A planner for to-dos, events and the money around them. This is the Next.js rebuild of PLANIT, which I first built in PHP.
 
 ## Status
 
